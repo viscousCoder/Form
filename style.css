@@ -34,15 +34,17 @@ header p {
 }
 
 label {
+  font-size: 17px;
   display: block;
   margin: 10px 0 5px;
 }
+
 input,
 select,
 textarea {
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
   width: 100%;
-  padding: 9px 0px;
+  padding: 9px 9px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -63,7 +65,7 @@ input[type="radio"],
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
-  background-color: aquamarine;
+  background-color: #61c5bf;
   color: black;
   cursor: pointer;
 }
@@ -72,9 +74,12 @@ button {
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
-  background-color: aquamarine;
+  background-color: #61c5bf;
   color: black;
   cursor: pointer;
+}
+#submitBtn:hover {
+  background-color: aqua;
 }
 button:hover {
   background-color: aqua;
@@ -86,7 +91,7 @@ button:hover {
   border-color: green;
 }
 td {
-  width: 10vh;
+  /* width: 10vh; */
   height: 10vh;
   text-align: center;
 }

@@ -19,19 +19,19 @@
             <fieldset>
                 <legend>User Form</legend>
                 <form id="userForm">
-                    <label for="username">Name:</label>
+                    <label for="username">Name</label>
                     <input type="text" id="username" name="username">
                     <span class="error-message" id="usernameError">Please enter username!</span>
-                    <label for="contact">Contact:</label>
+                    <label for="contact">Contact</label>
                     <input type="text" id="contact" name="contact">
                     <span class="error-message" id="contactError">Please fill the contact number!</span>
-                    <label for="email">Email:</label>
+                    <label for="email">Email</label>
                     <input type="text" id="email" name="email">
                     <span class="error-message" id="emailError">Please fill the email!</span>
-                    <label for="date">Date Of Birth:</label>
+                    <label for="date">Date Of Birth</label>
                     <input type="date" id="date" name="date" min="1950-01-01" max="2024-01-31">
                     <span id="dateError" class="error-message">Please fill the date of birth!</span>
-                    <label for="age">Age:</label>
+                    <label for="age">Age</label>
                     <input type="text" id="age" name="age" readonly>
                     <span class="error-message" id="ageError">Please fill the age!</span>
                     <!-- <label for="gender">Gender:</label>
@@ -41,7 +41,7 @@
                         <option value="female">Female</option>
                         <option value="other">Other</option>
                     </select> -->
-                    <label for="gender">Gender:</label>
+                    <label for="gender">Gender</label>
                     <input type="radio" name="gender" id="male" value="male" checked>
                     <label for="male" class="checkboxLabel">Male</label>
                     <input type="radio" name="gender" id="female" value="female">
@@ -59,19 +59,19 @@
                     <span class="error-message" id="districtError">Please fill the district!</span> -->
 
 
-                    <label for="state">State:</label>
-                    <select name="state" id="state">
+                    <label for="state">State</label>
+                    <select name="state" id="state" class="stateClass">
                         <option value="" selected="selected">Select the state</option>
                     </select>
                     <span id="stateError" class="error-message">Please fill the state!</span>
 
-                    <label for="district">District:</label>
+                    <label for="district">District</label>
                     <select name="district" id="district">
                         <option value="" selected="selected">Select the district</option>
                     </select>
                     <span class="error-message" id="districtError">Please fill the district!</span>
 
-                    <label for="address">Address:</label>
+                    <label for="address">Address</label>
                     <textarea name="address" id="address"></textarea>
                     <span id="addressError" class="error-message">Please fill the address!</span>
                     <label for="adult">Are you an adult? </label>
