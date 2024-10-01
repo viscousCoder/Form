@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
   const userForm = document.getElementById("userForm");
   const showTable = document.getElementById("showTable");
@@ -10,53 +9,104 @@ document.addEventListener("DOMContentLoaded", function () {
   const state = document.getElementById("state");
   const district = document.getElementById("district");
 
-
   const date = document.getElementById("date");
   const age = document.getElementById("age");
 
+  const name = document.getElementById("username");
+  const contact = document.getElementById("contact");
+  const email = document.getElementById("email");
+  // const gender = document.getElementById("gender");
+  const gender = document.querySelector("input[name=gender]:checked");
+  // const state = document.getElementById("state");
+  // const district = document.getElementById("district");
+  const address = document.getElementById("address");
 
-function calculateAge() {
+  //to remove eroro
+  name.addEventListener("focus", function () {
+    // Remove the 'error' class
+    name.classList.remove("error");
+    document.getElementById("usernameError").style.display = "none";
+  });
+  contact.addEventListener("focus", function () {
+    // Remove the 'error' class
+    contact.classList.remove("error");
+    document.getElementById("contactError").style.display = "none";
+  });
+  email.addEventListener("focus", function () {
+    // Remove the 'error' class
+    email.classList.remove("error");
+    document.getElementById("emailError").style.display = "none";
+  });
+  date.addEventListener("focus", function () {
+    // Remove the 'error' class
+    date.classList.remove("error");
+    document.getElementById("dateError").style.display = "none";
+  });
+  age.addEventListener("focus", function () {
+    // Remove the 'error' class
+    age.classList.remove("error");
+    document.getElementById("ageError").style.display = "none";
+  });
+  state.addEventListener("focus", function () {
+    // Remove the 'error' class
+    state.classList.remove("error");
+    document.getElementById("stateError").style.display = "none";
+  });
+  district.addEventListener("focus", function () {
+    // Remove the 'error' class
+    district.classList.remove("error");
+    document.getElementById("districtError").style.display = "none";
+  });
+  address.addEventListener("focus", function () {
+    // Remove the 'error' class
+    address.classList.remove("error");
+    document.getElementById("addressError").style.display = "none";
+  });
+
+  function calculateAge() {
     const dateOfBirth = new Date(date.value);
     const today = new Date();
-  
+
     let getAge = today.getFullYear() - dateOfBirth.getFullYear();
     const monthDifference = today.getMonth() - dateOfBirth.getMonth();
-    
-    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dateOfBirth.getDate())) {
-        getAge--;
+
+    if (
+      monthDifference < 0 ||
+      (monthDifference === 0 && today.getDate() < dateOfBirth.getDate())
+    ) {
+      getAge--;
     }
-  
-    age.value = getAge >= 0 ? getAge : '';
+
+    age.value = getAge >= 0 ? getAge : "";
   }
-  
+
   date.addEventListener("change", calculateAge);
   const subjectObject = {
     Uttarakhand: ["Nainital", "Haldwani", "Tehri"],
     UttarPradesh: ["Ghaziabad", "Noida", "Ballia"],
   };
   function populateStates() {
-      for (let stateName in subjectObject) {
-          state.options[state.options.length] = new Option(stateName, stateName);
-      }
+    for (let stateName in subjectObject) {
+      state.options[state.options.length] = new Option(stateName, stateName);
+    }
   }
   function populateDistricts() {
-      district.length = 1; 
-      if (state.selectedIndex < 1) return;
+    district.length = 1;
+    if (state.selectedIndex < 1) return;
 
-      const districts = subjectObject[state.value];
-      districts.forEach((districtName) => {
-          district.options[district.options.length] = new Option(districtName, districtName);
-      });
+    const districts = subjectObject[state.value];
+    districts.forEach((districtName) => {
+      district.options[district.options.length] = new Option(
+        districtName,
+        districtName
+      );
+    });
   }
 
-
-  
   state.addEventListener("change", populateDistricts);
   populateStates();
 
-
-
-  console.log("Thiss",state,district)
+  console.log("Thiss", state, district);
 
   function updateDateTime() {
     const now = new Date();
@@ -103,16 +153,16 @@ function calculateAge() {
     event.preventDefault();
     let isValid = true;
     // let time = document.getElementById("min");
-    const name = document.getElementById("username");
-    const contact = document.getElementById("contact");
-    const email = document.getElementById("email");
-    const date = document.getElementById("date");
-    const age = document.getElementById("age");
-    // const gender = document.getElementById("gender");
-    const gender = document.querySelector("input[name=gender]:checked");
-    // const state = document.getElementById("state");
-    // const district = document.getElementById("district");
-    const address = document.getElementById("address");
+    // const name = document.getElementById("username");
+    // const contact = document.getElementById("contact");
+    // const email = document.getElementById("email");
+    // const date = document.getElementById("date");
+    // const age = document.getElementById("age");
+    // // const gender = document.getElementById("gender");
+    // const gender = document.querySelector("input[name=gender]:checked");
+    // // const state = document.getElementById("state");
+    // // const district = document.getElementById("district");
+    // const address = document.getElementById("address");
     const adult = document.querySelector("input[name=adultY]:checked");
 
     let adultValue;
@@ -121,7 +171,6 @@ function calculateAge() {
     } else {
       adultValue = "No";
     }
-   
 
     console.log(gender, "This is the value", adultValue);
 
@@ -169,78 +218,20 @@ function calculateAge() {
     } else {
       showSuccess(age, "ageError");
     }
-
-    // const genderRegex = /^[a-zA-Z]+$/;
-    // if (!genderRegex.test(gender.value.trim())) {
-    //   showError(gender, "genderError");
-    //   isValid = false;
-    // } else {
-    //   showSuccess(gender, "genderError");
-    // }
-
-    // const subjectObject = {
-    //   Uttarakhand: ["Nainital", "Haldwani", "Tehri"],
-    //   UttarPradesh: ["Ghaziabad", "Noida", "Ballia"],
-    // };
-    // function populateStates() {
-    //     for (let stateName in subjectObject) {
-    //         state.options[state.options.length] = new Option(stateName, stateName);
-    //     }
-    // }
-    // function populateDistricts() {
-    //     district.length = 1; 
-    //     if (state.selectedIndex < 1) return;
-
-    //     const districts = subjectObject[state.value];
-    //     districts.forEach((districtName) => {
-    //         district.options[district.options.length] = new Option(districtName, districtName);
-    //     });
-    // }
-
-    //   // Add event listener for state selection
-    //   state.addEventListener("click", function () {
-    //     populateStates(); 
-    //     populateDistricts(); 
-    // });
-    
-    // state.addEventListener("change", populateDistricts);
-    // populateStates();
-
-
-
-    //   const stateRegex = /^[a-zA-Z]+$/;
-    //   if (!stateRegex.test(state.value.trim())) {
-    //     showError(state, "stateError");
-    //     isValid = false;
-    //   } else {
-    //     showSuccess(state, "stateError");
-    //   }
-
-    //   const districtRegex = /^[a-zA-Z]+$/;
-    //   if (!districtRegex.test(district.value.trim())) {
-    //     showError(district, "districtError");
-    //     isValid = false;
-    //   } else {
-    //     showSuccess(district, "districtError");
-    //   }
-
-      // Validation for state selection
-      if (state.selectedIndex === 0) { // Assuming the first option is a placeholder
-        showError(state, "stateError");
-        isValid = false;
+    if (state.selectedIndex === 0) {
+      showError(state, "stateError");
+      isValid = false;
     } else {
-        showSuccess(state, "stateError");
+      showSuccess(state, "stateError");
     }
 
-    // Validation for district selection
-    if (district.selectedIndex === 0) { // Assuming the first option is a placeholder
-        showError(district, "districtError");
-        isValid = false;
+    if (district.selectedIndex === 0) {
+      showError(district, "districtError");
+      isValid = false;
     } else {
-        showSuccess(district, "districtError");
+      showSuccess(district, "districtError");
     }
 
-    // const addressRegex = /^[a-zA-Z\-\.+0-9]+$/;
     const addressRegex = /^[A-Za-z0-9\s.-]+(?:\s+[A-Za-z0-9.-]+)*$/;
     if (!addressRegex.test(address.value.trim())) {
       showError(address, "addressError");
@@ -288,7 +279,6 @@ function calculateAge() {
       document.getElementById("submitBtn").innerText = "Submit";
     }
   });
-
 
   function showError(input, errorId) {
     document.getElementById(errorId).style.display = "block";
