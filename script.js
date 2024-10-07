@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
       showSuccess(name, "usernameError");
     }
 
-    const contactRegex = /^[89][0-9]{9}$/;
+    const contactRegex = /^[0-9]{10}$/;
     if (!contactRegex.test(contact.value.trim())) {
       showError(contact, "contactError");
       isValid = false;
@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
       showSuccess(contact, "contactError");
     }
 
-    const emailRegex = /^[a-zA-Z0-9\-+%]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,3}$/;
+    const emailRegex = /^[a-zA-Z0-9\-+%\.]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,3}$/;
     if (!emailRegex.test(email.value.trim())) {
       showError(email, "emailError");
       isValid = false;
