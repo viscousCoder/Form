@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Details</title>
     <link rel="stylesheet" href="style.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -42,7 +46,7 @@
                         <option value="other">Other</option>
                     </select> -->
                     <label for="gender">Gender</label>
-                    <input type="radio" name="gender" id="male" value="male" checked>
+                    <input type="radio" name="gender" id="male" value="male">
                     <label for="male" class="checkboxLabel">Male</label>
                     <input type="radio" name="gender" id="female" value="female">
                     <label for="female" class="checkboxLabel">Female</label>
@@ -104,6 +108,31 @@
 
             <button id="showForm">Show Form</button>
         </div>
+
+        <!-- Modal -->
+        <div id="userModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" id="modalClose" class="modalClassClose">&times;</span>
+                <h2>User Details</h2>
+                <hr>
+                <div class="flexDiv">
+                    <!-- <div> -->
+                    <p><strong>Name:</strong> <span id="modalName"></span></p>
+                    <p><strong>Age:</strong> <span id="modalAge"></span></p>
+                    <p><strong>District:</strong> <span id="modalDistrict"></span></p>
+                    <p><strong>State:</strong> <span id="modalState"></span></p>
+                    <!-- </div>
+                    <div> -->
+                    <p><strong>Contact Number:</strong> <span id="modalContact"></span></p>
+                    <p><strong>Gender:</strong> <span id="modalGender"></span></p>
+                    <p><strong>Adult:</strong> <span id="modalAdult"></span></p>
+                    <!-- <button id="closeModal" class="modalClassClose">Cancel</button> -->
+                    <!-- </div> -->
+                </div>
+            </div>
+
+        </div>
+
     </div>
     <script src="script.js"></script>
 </body>

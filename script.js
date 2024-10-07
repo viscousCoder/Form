@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const showTable = document.getElementById("showTable");
   const showForm = document.getElementById("showForm");
   let users = JSON.parse(localStorage.getItem("users")) || [];
+  console.log(users, "data");
   let editingUserId = null;
   const userTableBody = document.querySelector("#userTable tbody");
 
@@ -16,7 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const contact = document.getElementById("contact");
   const email = document.getElementById("email");
   // const gender = document.getElementById("gender");
-  const gender = document.querySelector("input[name=gender]:checked");
+  // const gender = document.querySelector("input[name=gender]:checked");
+  // const gender = document.querySelector("input[name='gender']:checked");
+  // const genderValue = gender ? gender.value : "";
+  // console.log(genderValue, "gender");
   // const state = document.getElementById("state");
   // const district = document.getElementById("district");
   const address = document.getElementById("address");
@@ -127,10 +131,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   updateDateTime();
-  // Update date and time every second
   setInterval(updateDateTime, 1000);
 
   function renderTable() {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
     userTableBody.innerHTML = "";
     if (users.length == 0) {
       const row = document.createElement("tr");
@@ -144,7 +148,11 @@ document.addEventListener("DOMContentLoaded", function () {
               <td class="emailClass">${user.email}</td>
               <td>${user.age}</td>
               <td>${user.state}</td>
-              <td class="editBtn"><button onClick="editUser(${user.id})" >Edit</button></td>
+              <td class="editBtn">
+              <span><button class="actionBtn" onClick="editUser(${user.id})" >Edit</button></span>
+              <span><button class="actionBtn" onClick="deleteUser(${user.id})" >Delete</button></span>
+              <span><button class="actionBtn" onClick="viewUser(${user.id})" >View</button></span>
+              </td>
               `;
       userTableBody.appendChild(row);
     });
@@ -152,18 +160,8 @@ document.addEventListener("DOMContentLoaded", function () {
   userForm.addEventListener("submit", function (event) {
     event.preventDefault();
     let isValid = true;
-    // let time = document.getElementById("min");
-    // const name = document.getElementById("username");
-    // const contact = document.getElementById("contact");
-    // const email = document.getElementById("email");
-    // const date = document.getElementById("date");
-    // const age = document.getElementById("age");
-    // // const gender = document.getElementById("gender");
-    // const gender = document.querySelector("input[name=gender]:checked");
-    // // const state = document.getElementById("state");
-    // // const district = document.getElementById("district");
-    // const address = document.getElementById("address");
     const adult = document.querySelector("input[name=adultY]:checked");
+    const gender = document.querySelector("input[name='gender']:checked");
 
     let adultValue;
     if (adult) {
@@ -252,7 +250,8 @@ document.addEventListener("DOMContentLoaded", function () {
         state: state.value,
         district: district.value,
         address: address.value,
-        adult: adultValue,
+        // adult: adultValue,
+        adult: adult ? adult.value : "No",
       };
       if (editingUserId) {
         const index = users.findIndex((u) => u.id === editingUserId);
@@ -302,6 +301,35 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("tableContainer").style.display = "none";
   });
 
+  // window.editUser = function (id) {
+  //   const user = users.find((u) => u.id === id);
+  //   console.log(user, document.getElementById("adultY").value);
+  //   if (user) {
+  //     document.getElementById("username").value = user.name;
+  //     document.getElementById("contact").value = user.contact;
+  //     document.getElementById("email").value = user.email;
+  //     document.getElementById("date").value = user.date;
+  //     document.getElementById("age").value = user.age;
+  //     //   document.getElementById("gender").value = user.gender;
+  //     const genderRadios = document.querySelectorAll("input[name='gender']");
+  //     genderRadios.forEach((radio) => {
+  //       if (radio.value === user.gender) {
+  //         radio.checked = true;
+  //       }
+  //     });
+  //     document.getElementById("state").value = user.state;
+  //     document.getElementById("district").value = user.district;
+  //     document.getElementById("address").value = user.address;
+  //     // document.getElementById("adultY").value = user.adult;
+  //     document.getElementById("adultY").checked = user.adult == "Yes";
+
+  //     editingUserId = user.id;
+  //     document.getElementById("formContainer").style.display = "block";
+  //     document.getElementById("tableContainer").style.display = "none";
+  //   }
+  //   document.getElementById("submitBtn").innerText = "Update";
+  // };
+
   window.editUser = function (id) {
     const user = users.find((u) => u.id === id);
     if (user) {
@@ -310,21 +338,67 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("email").value = user.email;
       document.getElementById("date").value = user.date;
       document.getElementById("age").value = user.age;
-      //   document.getElementById("gender").value = user.gender;
-      const genderRadios = document.querySelectorAll("input[name='gender']");
+
+      // Set the gender radio buttons
+      const genderRadios = document.querySelectorAll("input[type='radio']");
       genderRadios.forEach((radio) => {
         if (radio.value === user.gender) {
           radio.checked = true;
         }
       });
+
       document.getElementById("state").value = user.state;
-      document.getElementById("district").value = user.district;
+      populateDistricts();
+      setTimeout(() => {
+        document.getElementById("district").value = user.district; // Set the district value
+      }, 0);
+      // document.getElementById("district").value = user.district;
       document.getElementById("address").value = user.address;
-      document.getElementById("adultY").value = user.adult;
+
+      // Set the adult checkbox
+      document.getElementById("adultY").checked = user.adult === "Yes";
+
       editingUserId = user.id;
       document.getElementById("formContainer").style.display = "block";
       document.getElementById("tableContainer").style.display = "none";
     }
     document.getElementById("submitBtn").innerText = "Update";
+  };
+
+  window.deleteUser = function (id) {
+    users = users.filter((u) => u.id !== id);
+    localStorage.setItem("users", JSON.stringify(users));
+    renderTable();
+  };
+
+  // Function to open the modal and display user details
+  window.viewUser = function (id) {
+    const user = users.find((u) => u.id === id);
+    if (user) {
+      document.getElementById("modalName").textContent = user.name;
+      document.getElementById("modalAge").textContent = user.age;
+      document.getElementById("modalDistrict").textContent = user.district;
+      document.getElementById("modalState").textContent = user.state;
+      document.getElementById("modalContact").textContent = user.contact;
+      document.getElementById("modalGender").textContent = user.gender;
+      document.getElementById("modalAdult").textContent = user.adult;
+
+      document.getElementById("userModal").style.display = "block";
+    }
+  };
+
+  document.getElementById("modalClose").onclick = function () {
+    document.getElementById("userModal").style.display = "none";
+  };
+  // document.getElementById("closeModal").onclick = function () {
+  //   document.getElementById("userModal").style.display = "none";
+  //   alert("hii");
+  // };
+
+  window.onclick = function (event) {
+    const modal = document.getElementById("userModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
   };
 });
