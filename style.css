@@ -80,10 +80,10 @@ button {
   cursor: pointer;
 }
 #submitBtn:hover {
-  background-color: aqua;
+  background-color: #61a39f;
 }
 button:hover {
-  background-color: aqua;
+  background-color: #61a39f;
 }
 .error {
   border-color: red;
@@ -148,3 +148,41 @@ td {
   text-decoration: none;
   cursor: pointer;
 }
+#district,
+#state {
+  width: 100%;
+  padding: 10px;
+  border-radius: 3px;
+  outline: 1px solid #cccccc;
+  border-right: 8px solid transparent;
+}
+
+input[type="date"]:invalid::-webkit-datetime-edit {
+  color: #999;
+}
+
+/* CSS */
+input::placeholder,
+textarea::placeholder {
+  color: lightgray;
+}
+
+input,
+textarea {
+  color: lightgray;
+  border: 1px solid #ccc;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+input:not(:placeholder-shown),
+textarea:not(:placeholder-shown) {
+  color: black;
+}
+
+/* To ensure radio buttons and checkboxes are consistently styled */
+/* input[type="radio"],
+input[type="checkbox"] {
+    color: black;
+} */

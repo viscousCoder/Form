@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const showTable = document.getElementById("showTable");
   const showForm = document.getElementById("showForm");
   let users = JSON.parse(localStorage.getItem("users")) || [];
-  console.log(users, "data");
+  // console.log(users, "data");
   let editingUserId = null;
   const userTableBody = document.querySelector("#userTable tbody");
 
@@ -67,6 +67,28 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("addressError").style.display = "none";
   });
 
+  document.getElementById("email").addEventListener("input", (event) => {
+    const input = event.target;
+    // console.log(input, "Thiss");
+    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,3}$/.test(input.value); // Check if the input contains only numbers
+    console.log(isValid, "Aman");
+    if (!isValid) {
+      showError(email, "emailError", false);
+      // email.classList.add("error");
+      input.classList.add("input-error");
+    } else {
+      const errorMessage = input.nextElementSibling;
+      input.classList.remove("error");
+      input.classList.remove("input-error");
+      document.getElementById("emailError").textContent = "";
+      // showSuccess(email, "emailError");
+      // if (errorMessage && errorMessage.classList.contains("error-message")) {
+      //   errorMessage.remove();
+      //   input.classList.remove("input-error");
+      // }
+    }
+  });
+
   function calculateAge() {
     const dateOfBirth = new Date(date.value);
     const today = new Date();
@@ -110,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
   state.addEventListener("change", populateDistricts);
   populateStates();
 
-  console.log("Thiss", state, district);
+  // console.log("Thiss", state, district);
 
   function updateDateTime() {
     const now = new Date();
@@ -279,10 +301,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  function showError(input, errorId) {
-    document.getElementById(errorId).style.display = "block";
-    input.classList.add("error");
-    input.classList.remove("success");
+  function showError(input, errorId, emailBol = true) {
+    if (emailBol) {
+      document.getElementById(errorId).style.display = "block";
+      input.classList.add("error");
+      input.classList.remove("success");
+    } else {
+      document.getElementById(errorId).textContent = "";
+      document.getElementById(errorId).style.display = "block";
+      document.getElementById(errorId).textContent = "Invalid email format";
+      input.classList.add("error");
+      input.classList.remove("success");
+    }
   }
   function showSuccess(input, errorId) {
     document.getElementById(errorId).style.display = "none";
