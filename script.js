@@ -1,9 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const navFormLink = document.getElementById("navFormLink");
+  const navTableLink = document.getElementById("navTableLink");
+  const navbarToggle = document.getElementById("navbarToggle");
+  const navbarMenu = document.getElementById("navbarMenu");
+  const navLinks = document.querySelectorAll(".navbar-menu a");
   const userForm = document.getElementById("userForm");
-  const showTable = document.getElementById("showTable");
-  const showForm = document.getElementById("showForm");
   let users = JSON.parse(localStorage.getItem("users")) || [];
-  // console.log(users, "data");
+
   let editingUserId = null;
   const userTableBody = document.querySelector("#userTable tbody");
 
@@ -24,6 +27,17 @@ document.addEventListener("DOMContentLoaded", function () {
   // const state = document.getElementById("state");
   // const district = document.getElementById("district");
   const address = document.getElementById("address");
+
+  navbarToggle.addEventListener("click", function () {
+    navbarMenu.classList.toggle("show");
+  });
+
+  function setActiveLink(link) {
+    navLinks.forEach((navLink) => {
+      navLink.classList.remove("active");
+    });
+    link.classList.add("active");
+  }
 
   //to remove eroro
   name.addEventListener("focus", function () {
@@ -320,15 +334,28 @@ document.addEventListener("DOMContentLoaded", function () {
     input.classList.remove("error");
   }
 
-  showTable.addEventListener("click", function () {
+  // showTable.addEventListener("click", function () {
+  //   document.getElementById("formContainer").style.display = "none";
+  //   document.getElementById("tableContainer").style.display = "block";
+  //   renderTable();
+  // });
+  navTableLink.addEventListener("click", function () {
     document.getElementById("formContainer").style.display = "none";
     document.getElementById("tableContainer").style.display = "block";
     renderTable();
+    setActiveLink(navTableLink);
+    navbarMenu.classList.toggle("show");
   });
 
-  showForm.addEventListener("click", function () {
+  // showForm.addEventListener("click", function () {
+  //   document.getElementById("formContainer").style.display = "block";
+  //   document.getElementById("tableContainer").style.display = "none";
+  // });
+  navFormLink.addEventListener("click", function () {
     document.getElementById("formContainer").style.display = "block";
     document.getElementById("tableContainer").style.display = "none";
+    setActiveLink(navFormLink);
+    navbarMenu.classList.toggle("show");
   });
 
   // window.editUser = function (id) {
